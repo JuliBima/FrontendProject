@@ -1,0 +1,66 @@
+﻿@model IEnumerable<FrontendProject.Models.Student>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>DATA STUDENT </h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">List Student</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <p>
+                <a class="btn btn-primary" asp-action="Create">Create New</a>
+            </p>
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+
+
+
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstMidName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EnrollmentDate)
+                    </th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstMidName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EnrollmentDate)
+                            </td>
+                            <td>
+                                <a class="btn btn-success" asp-action="Update" asp-route-id="@item.ID">Update</a> &nbsp;
+                                <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.ID">Details</a> &nbsp;
+                                <a class="btn btn-danger " asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+          
