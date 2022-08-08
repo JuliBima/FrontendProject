@@ -1,3 +1,5 @@
+using FrontendProject.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,7 +17,11 @@ builder.Services.AddSession(options =>
 //menambahkan agar pengguna yang belum login diminta login dan dapat mengakses controller
 builder.Services.ConfigureApplicationCookie(opt => opt.LoginPath = "/Account/Login");
 
+builder.Services.AddScoped<IStudent, StudentService>();
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
