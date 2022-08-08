@@ -28,6 +28,8 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
+//menambahkan automapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 //menambahkan setting jwt
 var appSettingsSection = builder.Configuration.GetSection("AppSettings");
@@ -63,6 +65,8 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<IUser, UserDAL>();
+builder.Services.AddScoped<IStudent, StudentDAL>();
+builder.Services.AddScoped<ICourse, CourseDAL>();
 
 var app = builder.Build();
 
@@ -83,3 +87,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
