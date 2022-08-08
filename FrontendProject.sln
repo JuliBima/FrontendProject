@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontendProject", "FrontendProject\FrontendProject.csproj", "{19EDF0C0-DD85-4614-89EA-E9C069A3EC2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontendProject", "FrontendProject\FrontendProject.csproj", "{19EDF0C0-DD85-4614-89EA-E9C069A3EC2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBackendProject", "MyBackendProject\MyBackendProject.csproj", "{AEFF16D5-7BC3-45FA-B881-54F6B7C91CD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBackendProject", "MyBackendProject\MyBackendProject.csproj", "{AEFF16D5-7BC3-45FA-B881-54F6B7C91CD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
