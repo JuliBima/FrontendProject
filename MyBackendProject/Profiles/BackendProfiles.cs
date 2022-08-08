@@ -22,6 +22,14 @@ namespace MyBackendProject.Profiles
             CreateMap<CourseCreateDTO, Course>();
             CreateMap<Course, CourseCreateDTO>();
 
+            //Enrollment
+            CreateMap<EnrollmentDTO, Enrollment>();
+            CreateMap<Enrollment, EnrollmentDTO>();
+            CreateMap<EnrollmentCreateDTO, Enrollment>();
+            CreateMap<Enrollment, EnrollmentCreateDTO>();
+            CreateMap<EnrollmentEditDTO, Enrollment>();
+            CreateMap<Enrollment, EnrollmentEditDTO>();
+
 
 
         }

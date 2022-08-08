@@ -63,9 +63,9 @@ namespace MyBackendProject.Controllers
            
             var result = await _courseDAL.GetById(id);
             if (result == null) throw new Exception($"data {id} tidak ditemukan");
-            var samuraiDTO = _mapper.Map<CourseDTO>(result);
+            var DTO = _mapper.Map<CourseDTO>(result);
 
-            return samuraiDTO;
+            return DTO;
         }
 
         [HttpPost]

@@ -30,6 +30,17 @@ namespace MyBackendProject.Controllers
             return DTO;
         }
 
+        [HttpGet("{id}")]
+        public async Task<StudentDTO> GetById(int id)
+        {
+
+            var result = await _studentDAL.GetById(id);
+            if (result == null) throw new Exception($"data {id} tidak ditemukan");
+            var DTO = _mapper.Map<StudentDTO>(result);
+
+            return DTO;
+        }
+
         [HttpGet("ByName")]
         public async Task<IEnumerable<StudentDTO>> GetByName(string fristMidName, string lastName)
         {

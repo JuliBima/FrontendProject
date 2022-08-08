@@ -67,6 +67,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<IUser, UserDAL>();
 builder.Services.AddScoped<IStudent, StudentDAL>();
 builder.Services.AddScoped<ICourse, CourseDAL>();
+builder.Services.AddScoped<IEnrollment, EnrollmentDAL>();
 
 var app = builder.Build();
 
