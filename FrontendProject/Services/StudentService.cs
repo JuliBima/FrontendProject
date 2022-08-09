@@ -1,13 +1,21 @@
 ﻿using FrontendProject.Models;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace FrontendProject.Services
 {
     public class StudentService : IStudent
     {
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.DeleteAsync($"https://localhost:6001/api/Student/{id}"))
+                {
+                    if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                        throw new Exception($"Gagal untuk delete data");
+                }
+            }
         }
 
         public async Task<IEnumerable<Student>> GetAll()
@@ -25,19 +33,89 @@ namespace FrontendProject.Services
             return results;
         }
 
-        public Task<Student> GetById(int id)
+        public async Task<Student> GetById(int id)
         {
-            throw new NotImplementedException();
+            Student student = new Student();
+            using (var httpClient = new HttpClient())
+            {
+                using (var respone = await httpClient.GetAsync($"https://localhost:6001/api/Student/{id}"))
+                {
+                    if (respone.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        string apiResponse = await respone.Content.ReadAsStringAsync();
+                        student = JsonConvert.DeserializeObject<Student>(apiResponse);
+                    }
+
+                }
+            }
+            return student;
         }
 
-        public Task<Student> Insert(Student obj)
+        public async Task<IEnumerable<Student>> GetByName(string fristName, string lastName)
         {
-            throw new NotImplementedException();
+            List<Student> students = new List<Student>();
+            using (var httpClient = new HttpClient())
+            {
+                using (var respone = await httpClient.GetAsync($"https://localhost:6001/api/Student/ByName?fristMidName={fristName}&lastName={lastName}"))
+                {
+                    string apiResponse = await respone.Content.ReadAsStringAsync();
+                    students = JsonConvert.DeserializeObject<List<Student>>(apiResponse);
+
+                }
+            }
+            return students;
         }
 
-        public Task<Student> Update(Student obj)
+        public async Task<Student> Insert(Student obj)
         {
-            throw new NotImplementedException();
+            Student student = new Student();
+            using (var httpClient = new HttpClient())
+            {
+                StringContent content = new StringContent(
+                    JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json");
+                using (var response = await httpClient.PostAsync("https://localhost:6001/api/Student", content))
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.Created)
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        student = JsonConvert.DeserializeObject<Student>(apiResponse);
+                    }
+                }
+            }
+            return student;
+        }
+
+        public async Task<IEnumerable<Student>> Pagging(int? skip, int? take)
+        {
+            List<Student> students = new List<Student>();
+            using (var httpClient = new HttpClient())
+            {
+                using (var respone = await httpClient.GetAsync($"https://localhost:6001/api/Student/Pagging/{skip}/{take}"))
+                {
+                    string apiResponse = await respone.Content.ReadAsStringAsync();
+                    students = JsonConvert.DeserializeObject<List<Student>>(apiResponse);
+
+                }
+            }
+            return students;
+        }
+
+        public async Task<Student> Update(Student obj)
+        {
+            Student student = await GetById(obj.ID);
+            if (student == null)
+                throw new Exception($"Data dengan id {obj.ID} tidak ditemukan");
+            StringContent content = new StringContent(JsonConvert.SerializeObject(obj),
+                  Encoding.UTF8, "application/json");
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.PutAsync("https://localhost:6001/api/Student", content))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    student = JsonConvert.DeserializeObject<Student>(apiResponse);
+                }
+            }
+            return student;
         }
     }
 }

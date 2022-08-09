@@ -13,27 +13,38 @@
         <div class="table-responsive">
             <p>
                 <a class="btn btn-primary" asp-action="Create">Create New</a>
+                <input type="submit" value="Get By Name" class="btn btn-info" data-toggle="modal" data-target="#Modal" />
+
+                <input type="submit" value="Pagging" class="btn btn-secondary" data-toggle="modal" data-target="#Modal1" />
+            </p>
+
+            <p>
+                @if (ViewData["pesan"] != null)
+                {
+                    @Html.Raw(ViewData["pesan"])
+                }
             </p>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
 
 
 
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ID)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.LastName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FirstMidName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EnrollmentDate)
-                    </th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstMidName)
+
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EnrollmentDate)
+                        </th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
@@ -43,10 +54,11 @@
                                 @Html.DisplayFor(modelItem => item.ID)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.LastName)
+                                @Html.DisplayFor(modelItem => item.FirstMidName)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.FirstMidName)
+                                @Html.DisplayFor(modelItem => item.LastName)
+
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.EnrollmentDate)
@@ -63,4 +75,53 @@
         </div>
     </div>
 </div>
-          
+
+<!-- Modal-->
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cari Berdasarkan Frist Name dan Last Name</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form asp-action="Index" method="get">
+                    <input name="FristName" class="form-control" type="text" placeholder="Masukan Frist Name" />
+                    <br />
+                    <input name="LastName" class="form-control" type="text" placeholder="Masukan Last Name" />
+                    <br />
+                    <input type="submit" value="Submit" class="btn btn-primary" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal-->
+<div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cari Berdasarkan Frist Name dan Last Name</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form asp-action="Index" method="get">
+                    <input type="number" name="skip" class="form-control" type="text" placeholder="skip" />
+                    <br />
+                    <input type="number" name="take" class="form-control" type="text" placeholder="take" />
+                    <br />
+                    <input type="submit" value="Submit" class="btn btn-warning" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
