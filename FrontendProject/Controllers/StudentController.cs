@@ -1,5 +1,9 @@
+
 ﻿using FrontendProject.Models;
 using FrontendProject.Services;
+
+﻿using FrontendProject.Services;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace FrontendProject.Controllers
@@ -11,6 +15,7 @@ namespace FrontendProject.Controllers
         {
             _student = student;
         }
+
         public async Task<IActionResult> Index(string? fristName, string? lastName , int? skip , int? take)
         {
             
@@ -121,6 +126,17 @@ namespace FrontendProject.Controllers
                 return View();
             }
         }
+
+        public async Task<IActionResult> StudentEnrollmentCourse()
+        {
+            var model = await _student.GetEnrollmentCourses();
+
+            ViewData["pesan"] = TempData["pesan"] ?? TempData["pesan"];
+            return View(model);
+        }
+
+
+
 
     }
 }

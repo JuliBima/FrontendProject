@@ -1,11 +1,14 @@
 ﻿using FrontendProject.Models;
 using Newtonsoft.Json;
+
 using System.Text;
+
 
 namespace FrontendProject.Services
 {
     public class StudentService : IStudent
     {
+
         public async Task Delete(int id)
         {
             using (var httpClient = new HttpClient())
@@ -17,6 +20,8 @@ namespace FrontendProject.Services
                 }
             }
         }
+
+
 
         public async Task<IEnumerable<Student>> GetAll()
         {
@@ -32,6 +37,7 @@ namespace FrontendProject.Services
             }
             return results;
         }
+
 
         public async Task<Student> GetById(int id)
         {
@@ -65,6 +71,22 @@ namespace FrontendProject.Services
             }
             return students;
         }
+
+        public async Task<IEnumerable<StudentEnrollmentCourse>> GetEnrollmentCourses()
+        {
+            List<StudentEnrollmentCourse> results = new List<StudentEnrollmentCourse>();
+            using (var httpClient = new HttpClient())
+            {
+                using (var respone = await httpClient.GetAsync("https://localhost:6001/api/Student/WithEnrollmentCourses"))
+                {
+                    string apiResponse = await respone.Content.ReadAsStringAsync();
+                    results = JsonConvert.DeserializeObject<List<StudentEnrollmentCourse>>(apiResponse);
+
+                }
+            }
+            return results;
+        }
+    
 
         public async Task<Student> Insert(Student obj)
         {
@@ -116,6 +138,9 @@ namespace FrontendProject.Services
                 }
             }
             return student;
+
+
         }
+
     }
 }
