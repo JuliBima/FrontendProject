@@ -121,5 +121,13 @@ namespace FrontendProject.Controllers
                 return View();
             }
         }
+
+        public async Task<IActionResult> CourseWithStudent()
+        {
+            var model = await _course.GetWithStudent();
+
+            ViewData["pesan"] = TempData["pesan"] ?? TempData["pesan"];
+            return View(model);
+        }
     }
 }

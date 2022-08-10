@@ -57,3 +57,29 @@
         </div>
     </div>
 </div>
+@*
+<div class="row">
+    <div class="col-xl-9 col-lg-7">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+
+                @if(Model.Enrollments.Any())
+                {
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Course</th>
+                            
+                        </tr>
+                        @foreach(var item in Model.Enrollments)
+                        {
+                            <tr>
+                                <td>@item.Course.Title</td>
+                                
+                            </tr>
+                        }
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</div>*@

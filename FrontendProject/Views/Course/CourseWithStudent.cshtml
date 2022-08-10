@@ -1,0 +1,70 @@
+﻿@model IEnumerable<FrontendProject.Models.CourseElementStudent>
+
+@{
+    ViewData["Title"] = "Course With Student";
+}
+
+<h1>Course With Student</h1>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">List Course With Student</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <p>
+                <a class="btn btn-primary" asp-action="Index">Back to Course</a>
+            </p>
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CourseID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Credits)
+                        </th>
+                        <th>
+                            Student Name
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CourseID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                <p>
+                                    @Html.DisplayFor(modelItem => item.Credits) SKS
+                                </p>
+
+                            </td>
+                            <td>
+                                @foreach (var student in item.Enrollments)
+                                {
+                                    <p>
+                                        @student.Student.FirstMidName @student.Student.LastName
+                                    </p>
+                                }
+                            </td>
+                            @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>*@
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

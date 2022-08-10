@@ -44,7 +44,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" asp-controller="Home" asp-action="Index">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -72,9 +72,29 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelola Data Student</h6>
                         <a class="collapse-item" asp-controller="Student" asp-action="Index">Student</a>
+                        
                         <a class="collapse-item" asp-controller="Course" asp-action="Index">Course</a>
+                        
                         <a class="collapse-item" asp-controller="Enrollment" asp-action="Index">Enrollment</a>
                        
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities1"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Menampilkan Data</span>
+                </a>
+                <div id="collapseUtilities1" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Menampilkan Data </h6>
+                        <a class="collapse-item" asp-controller="Student" asp-action="StudentWithCourse">Student With Course</a>
+                         <a class="collapse-item" asp-controller="Student" asp-action="StudentEnrollmentCourse">Student Enrollment Course</a>
+                        <a class="collapse-item" asp-controller="Course" asp-action="CourseWithStudent">Course With Student</a>
+                        
                     </div>
                 </div>
             </li>

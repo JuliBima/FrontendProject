@@ -66,6 +66,21 @@ namespace FrontendProject.Services
             return courses;
         }
 
+        public async Task<IEnumerable<CourseElementStudent>> GetWithStudent()
+        {
+            List<CourseElementStudent> results = new List<CourseElementStudent>();
+            using (var httpClient = new HttpClient())
+            {
+                using (var respone = await httpClient.GetAsync("https://localhost:6001/api/Course/WithEnrollmentStudent"))
+                {
+                    string apiResponse = await respone.Content.ReadAsStringAsync();
+                    results = JsonConvert.DeserializeObject<List<CourseElementStudent>>(apiResponse);
+
+                }
+            }
+            return results;
+        }
+
         public async Task<Course> Insert(Course obj)
         {
             Course course = new Course();

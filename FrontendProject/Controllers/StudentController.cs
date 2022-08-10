@@ -11,9 +11,12 @@ namespace FrontendProject.Controllers
     public class StudentController : Controller
     {
         private readonly IStudent _student;
+        
+
         public StudentController(IStudent student)
         {
             _student = student;
+            
         }
 
         public async Task<IActionResult> Index(string? fristName, string? lastName , int? skip , int? take)
@@ -46,6 +49,7 @@ namespace FrontendProject.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var model = await _student.GetById(id);
+            
             return View(model);
         }
 
@@ -128,6 +132,14 @@ namespace FrontendProject.Controllers
         }
 
         public async Task<IActionResult> StudentEnrollmentCourse()
+        {
+            var model = await _student.GetEnrollmentCourses();
+
+            ViewData["pesan"] = TempData["pesan"] ?? TempData["pesan"];
+            return View(model);
+        }
+
+        public async Task<IActionResult> StudentWithCourse()
         {
             var model = await _student.GetEnrollmentCourses();
 

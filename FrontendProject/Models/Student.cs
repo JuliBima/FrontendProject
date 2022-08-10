@@ -7,5 +7,7 @@
         public string FirstMidName { get; set; }
         public DateTime EnrollmentDate { get; set; }
 
+        public ICollection<EnrollmentCourse> Enrollments { get; set; }
+
     }
 }
