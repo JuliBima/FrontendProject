@@ -1,96 +1,77 @@
-﻿@model IEnumerable<FrontendProject.Models.Student>
+﻿@model IEnumerable<FrontendProject.Models.Course>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>DATA STUDENT </h1>
+<h1>Index</h1>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">List Student</h6>
+        <h6 class="m-0 font-weight-bold text-primary">List Course</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
             <p>
                 <a class="btn btn-primary" asp-action="Create">Create New</a>
 
-                <input type="submit" value="Get By Name" class="btn btn-info" data-toggle="modal" data-target="#Modal" />
+                <input type="submit" value="Get By Title" class="btn btn-info" data-toggle="modal" data-target="#Modal" />
 
                 <input type="submit" value="Pagging" class="btn btn-secondary" data-toggle="modal" data-target="#Modal1" />
             </p>
-
-            <p>
+             <p>
                 @if (ViewData["pesan"] != null)
                 {
                     @Html.Raw(ViewData["pesan"])
                 }
             </p>
-
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.ID)
+                            @Html.DisplayNameFor(model => model.CourseID)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.FirstMidName)
-
+                            @Html.DisplayNameFor(model => model.Title)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.LastName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EnrollmentDate)
+                            @Html.DisplayNameFor(model => model.Credits)
                         </th>
                         <th></th>
                     </tr>
                 </thead>
-
-                </p>
-
-
-
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.ID)
+                                @Html.DisplayFor(modelItem => item.CourseID)
                             </td>
                             <td>
-
-                                @Html.DisplayFor(modelItem => item.FirstMidName)
+                                @Html.DisplayFor(modelItem => item.Title)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.LastName)
-
-                            </td>
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EnrollmentDate)
+                                @Html.DisplayFor(modelItem => item.Credits)
                             </td>
                             <td>
-                                <a class="btn btn-success" asp-action="Update" asp-route-id="@item.ID">Update</a> &nbsp;
-                                <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.ID">Details</a> &nbsp;
-                                <a class="btn btn-danger " asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                                <a class="btn btn-success" asp-action="Update" asp-route-id="@item.CourseID">Update</a> &nbsp;
+                                <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.CourseID">Details</a> &nbsp;
+                                <a class="btn btn-danger " asp-action="Delete" asp-route-id="@item.CourseID">Delete</a>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
-
         </div>
     </div>
 </div>
 
-
-<!-- Modal Pencarian By Name-->
+<!-- Modal Pencarian By Title-->
 <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cari Berdasarkan Frist Name dan Last Name</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Cari Berdasarkan Title</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -98,9 +79,8 @@
             <div class="modal-body">
 
                 <form asp-action="Index" method="get">
-                    <input name="FristName" class="form-control" type="text" placeholder="Masukan Frist Name" />
-                    <br />
-                    <input name="LastName" class="form-control" type="text" placeholder="Masukan Last Name" />
+                    <input name="Title" class="form-control" type="text" placeholder="Masukan Title" />
+                    
                     <br />
                     <input type="submit" value="Submit" class="btn btn-primary" />
                 </form>

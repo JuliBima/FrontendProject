@@ -48,6 +48,13 @@ namespace MyBackendProject.DAL
             return results;
         }
 
+        public async Task<IEnumerable<Student>> GetEnrollmentCourses()
+        {
+            var results = await _context.Students.Include(s => s.Enrollments)
+                .ThenInclude(s => s.Course).ToListAsync();
+            return results;
+        }
+
         public async Task<Student> Insert(Student obj)
         {
             try

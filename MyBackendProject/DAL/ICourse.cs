@@ -7,5 +7,7 @@ namespace MyBackendProject.DAL
         Task<IEnumerable<Course>> GetByTitle(string title);
 
         Task<IEnumerable<Course>> Pagging(int skip, int take);
+
+        Task<IEnumerable<Course>> GetEnrollmentStudent();
     }
 }

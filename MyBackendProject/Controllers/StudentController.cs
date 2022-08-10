@@ -68,6 +68,14 @@ namespace MyBackendProject.Controllers
             return DTO;
         }
 
+        [HttpGet("WithEnrollmentCourses")]
+        public async Task<IEnumerable<StudentEnrollmentCourseDTO>> GetEnrollmentCourses()
+        {
+            var results = await _studentDAL.GetEnrollmentCourses();
+            var DTO = _mapper.Map<IEnumerable<StudentEnrollmentCourseDTO>>(results);
+            return DTO;
+        }
+
         [HttpPost]
         public async Task<ActionResult> Post(StudentCreateDTO studentCreateDto)
         {

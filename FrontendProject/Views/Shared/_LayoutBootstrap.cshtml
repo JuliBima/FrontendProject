@@ -72,8 +72,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelola Data Student</h6>
                         <a class="collapse-item" asp-controller="Student" asp-action="Index">Student</a>
-                        <a class="collapse-item" href="utilities-border.html">Course</a>
-                        <a class="collapse-item" href="utilities-animation.html">Enrollment</a>
+                        <a class="collapse-item" asp-controller="Course" asp-action="Index">Course</a>
+                        <a class="collapse-item" asp-controller="Enrollment" asp-action="Index">Enrollment</a>
                        
                     </div>
                 </div>
@@ -125,14 +125,14 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand navbar-dark bg-primary topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Topbar Search -->
+                    @*<!-- Topbar Search -->
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
@@ -143,7 +143,9 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form>*@
+
+                    
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -303,7 +305,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-white small">Juli Bima Ardika</span>
                                 <img class="img-profile rounded-circle"
                                      src="~/bootstrap/img/undraw_profile.svg">
                             </a>

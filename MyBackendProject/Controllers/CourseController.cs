@@ -47,6 +47,15 @@ namespace MyBackendProject.Controllers
             return courseDtos;
         }
 
+        [HttpGet("WithEnrollmentStudent")]
+        public async Task<IEnumerable<CourseEnrollmentStudentDTO>> GetEnrollmentStudent()
+        {
+            var results = await _courseDAL.GetEnrollmentStudent();
+            var DTO = _mapper.Map<IEnumerable<CourseEnrollmentStudentDTO>>(results);
+            return DTO;
+        }
+
+
         [HttpGet("Pagging/{skip}/{take}")]
         public async Task<IEnumerable<CourseDTO>> Pagging(int skip, int take)
         {

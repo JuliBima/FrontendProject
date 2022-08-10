@@ -41,7 +41,16 @@ namespace MyBackendProject.Controllers
             return DTO;
         }
 
-        [HttpPost]
+        [HttpGet("WithStudentAndCourse")]
+        public async Task<IEnumerable<EnrollmentStudentCourseDTO>> GetEnrollmentStudentCourses()
+        {
+            var results = await _enrollmentDAL.GetEnrollmentStudentCourses();
+            var DTO = _mapper.Map<IEnumerable<EnrollmentStudentCourseDTO>>(results);
+            return DTO;
+        }
+
+
+        [HttpPost("InputEnrollment")]
 
         public async Task<ActionResult> Post(EnrollmentCreateDTO CreateDto, int studenID, int courseID)
         {
@@ -54,6 +63,23 @@ namespace MyBackendProject.Controllers
 
 
                 //return CreatedAtAction(nameof(GetById), new { id = result.CourseID + 1 }, Dto);
+                return CreatedAtAction("Get", new { id = result.EnrollmentID }, Dto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(EnrollmentDTO enrollment)
+        {
+            try
+            {
+                var newElement = _mapper.Map<Enrollment>(enrollment);
+                var result = await _enrollmentDAL.Insert(newElement);
+                var Dto = _mapper.Map<EnrollmentDTO>(result);
+
                 return CreatedAtAction("Get", new { id = result.EnrollmentID }, Dto);
             }
             catch (Exception ex)

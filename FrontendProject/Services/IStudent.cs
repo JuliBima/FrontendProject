@@ -6,5 +6,8 @@ namespace FrontendProject.Services
     {
         Task<IEnumerable<Student>> GetByName(string fristName, string lastName);
         Task<IEnumerable<Student>> Pagging(int? skip, int? take);
+
+        Task<IEnumerable<StudentEnrollmentCourse>> GetEnrollmentCourses();
+
     }
 }

@@ -41,11 +41,24 @@ namespace MyBackendProject.DAL
             return result;
         }
 
+        public async Task<IEnumerable<Enrollment>> GetEnrollmentStudentCourses()
+        {
+            var results = await _context.Enrollments.Include(s => s.Course).Include(s => s.Student).ToListAsync();
+            return results;
+        }
+
         public async Task<Enrollment> Insert(Enrollment obj)
         {
-            //var student = _context.Swords.FirstOrDefault(s => s.Id == swordID);
-            //var element = _context.Elements.FirstOrDefault(s => s.ElementId == elemenID);
-            throw new NotImplementedException();
+            try
+            {
+                _context.Enrollments.Add(obj);
+                await _context.SaveChangesAsync();
+                return obj;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
 
         }
 

@@ -1,51 +1,46 @@
-
 ﻿using FrontendProject.Models;
 using FrontendProject.Services;
-
-﻿using FrontendProject.Services;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace FrontendProject.Controllers
 {
-    public class StudentController : Controller
+    public class CourseController : Controller
     {
-        private readonly IStudent _student;
-        public StudentController(IStudent student)
+        private readonly ICourse _course;
+
+        public CourseController(ICourse course)
         {
-            _student = student;
+            _course = course;
         }
 
-        public async Task<IActionResult> Index(string? fristName, string? lastName , int? skip , int? take)
+        public async Task<IActionResult> Index(string? title, int? skip, int? take)
         {
-            
-            IEnumerable<Student> model;
-            if(skip ==  null && take == null)
+            IEnumerable<Course> model;
+            if (skip == null && take == null)
             {
-                if (fristName == null && lastName == null)
+                if (title == null)
                 {
 
-                    model = await _student.GetAll();
+                    model = await _course.GetAll();
                 }
                 else
                 {
-                    model = await _student.GetByName(fristName, lastName);
+                    model = await _course.GetByTitle(title);
                 }
             }
             else
             {
-                model = await _student.Pagging(skip, take);
+                model = await _course.Pagging(skip, take);
             }
-            
 
             ViewData["pesan"] = TempData["pesan"] ?? TempData["pesan"];
-            
+
             return View(model);
-            
         }
+
         public async Task<IActionResult> Details(int id)
         {
-            var model = await _student.GetById(id);
+            var model = await _course.GetById(id);
             return View(model);
         }
 
@@ -55,15 +50,15 @@ namespace FrontendProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Student student)
+        public async Task<IActionResult> Create(Course course)
         {
             try
             {
-                var result = await _student.Insert(student);
+                var result = await _course.Insert(course);
                 TempData["pesan"] =
                     $"<div class='alert alert-success alert-dismissible fade show'>" +
                     $"<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
-                    $"</button> Berhasil menambahkan data {result.FirstMidName} {result.LastName}</div>";
+                    $"</button> Berhasil menambahkan data {result.Title} </div>";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -79,20 +74,20 @@ namespace FrontendProject.Controllers
 
         public async Task<IActionResult> Update(int id)
         {
-            var model = await _student.GetById(id);
+            var model = await _course.GetById(id);
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(Student student)
+        public async Task<IActionResult> Update(Course course)
         {
             try
             {
-                var result = await _student.Update(student);
+                var result = await _course.Update(course);
                 TempData["pesan"] =
                     $"<div class='alert alert-success alert-dismissible fade show'>" +
                     $"<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
-                    $"</button> Berhasil merubah data {result.FirstMidName} {result.LastName}</div>";
+                    $"</button> Berhasil merubah data {result.Title} </div>";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -104,7 +99,7 @@ namespace FrontendProject.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var model = await _student.GetById(id);
+            var model = await _course.GetById(id);
             return View(model);
         }
 
@@ -114,8 +109,8 @@ namespace FrontendProject.Controllers
         {
             try
             {
-                await _student.Delete(id);
-                TempData["pesan"] = 
+                await _course.Delete(id);
+                TempData["pesan"] =
                     $"<div class='alert alert-success alert-dismissible fade show'>" +
                     $"<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
                     $"</button> Berhasil mendelete data dengan id: {id}</div>";
@@ -126,17 +121,5 @@ namespace FrontendProject.Controllers
                 return View();
             }
         }
-
-        public async Task<IActionResult> StudentEnrollmentCourse()
-        {
-            var model = await _student.GetEnrollmentCourses();
-
-            ViewData["pesan"] = TempData["pesan"] ?? TempData["pesan"];
-            return View(model);
-        }
-
-
-
-
     }
 }

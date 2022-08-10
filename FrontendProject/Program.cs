@@ -18,7 +18,8 @@ builder.Services.AddSession(options =>
 builder.Services.ConfigureApplicationCookie(opt => opt.LoginPath = "/Account/Login");
 
 builder.Services.AddScoped<IStudent, StudentService>();
-
+builder.Services.AddScoped<ICourse, CourseService>();
+builder.Services.AddScoped<IEnrollment, EnrollmentService>();
 var app = builder.Build();
 
 
