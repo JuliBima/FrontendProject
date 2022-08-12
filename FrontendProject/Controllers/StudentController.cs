@@ -3,11 +3,12 @@
 using FrontendProject.Services;
 
 ﻿using FrontendProject.Services;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FrontendProject.Controllers
 {
+    //[Authorize]
     public class StudentController : Controller
     {
         private readonly IStudent _student;
@@ -21,23 +22,29 @@ namespace FrontendProject.Controllers
 
         public async Task<IActionResult> Index(string? fristName, string? lastName , int? skip , int? take)
         {
-            
+
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
+
             IEnumerable<Student> model;
             if(skip ==  null && take == null)
             {
                 if (fristName == null && lastName == null)
                 {
 
-                    model = await _student.GetAll();
+                    model = await _student.GetAll(myToken);
                 }
                 else
                 {
-                    model = await _student.GetByName(fristName, lastName);
+                    model = await _student.GetByName(fristName, lastName, myToken);
                 }
             }
             else
             {
-                model = await _student.Pagging(skip, take);
+                model = await _student.Pagging(skip, take,myToken);
             }
             
 
@@ -48,7 +55,12 @@ namespace FrontendProject.Controllers
         }
         public async Task<IActionResult> Details(int id)
         {
-            var model = await _student.GetById(id);
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
+            var model = await _student.GetById(id, myToken);
             
             return View(model);
         }
@@ -61,9 +73,14 @@ namespace FrontendProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Student student)
         {
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
             try
             {
-                var result = await _student.Insert(student);
+                var result = await _student.Insert(student,myToken);
                 TempData["pesan"] =
                     $"<div class='alert alert-success alert-dismissible fade show'>" +
                     $"<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
@@ -83,16 +100,26 @@ namespace FrontendProject.Controllers
 
         public async Task<IActionResult> Update(int id)
         {
-            var model = await _student.GetById(id);
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
+            var model = await _student.GetById(id,myToken);
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(Student student)
         {
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
             try
             {
-                var result = await _student.Update(student);
+                var result = await _student.Update(student,myToken);
                 TempData["pesan"] =
                     $"<div class='alert alert-success alert-dismissible fade show'>" +
                     $"<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
@@ -108,7 +135,12 @@ namespace FrontendProject.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var model = await _student.GetById(id);
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
+            var model = await _student.GetById(id,myToken);
             return View(model);
         }
 
@@ -116,9 +148,14 @@ namespace FrontendProject.Controllers
         [HttpPost]
         public async Task<IActionResult> DeletePost(int id)
         {
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
             try
             {
-                await _student.Delete(id);
+                await _student.Delete(id,myToken);
                 TempData["pesan"] = 
                     $"<div class='alert alert-success alert-dismissible fade show'>" +
                     $"<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
@@ -133,7 +170,12 @@ namespace FrontendProject.Controllers
 
         public async Task<IActionResult> StudentEnrollmentCourse()
         {
-            var model = await _student.GetEnrollmentCourses();
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
+            var model = await _student.GetEnrollmentCourses(myToken);
 
             ViewData["pesan"] = TempData["pesan"] ?? TempData["pesan"];
             return View(model);
@@ -141,7 +183,12 @@ namespace FrontendProject.Controllers
 
         public async Task<IActionResult> StudentWithCourse()
         {
-            var model = await _student.GetEnrollmentCourses();
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
+            var model = await _student.GetEnrollmentCourses(myToken);
 
             ViewData["pesan"] = TempData["pesan"] ?? TempData["pesan"];
             return View(model);

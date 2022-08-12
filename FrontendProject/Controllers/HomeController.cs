@@ -15,6 +15,12 @@ namespace FrontendProject.Controllers
 
         public IActionResult Index()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                HttpContext.Session.SetString("token",
+                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Imp1bGliaW1hMTJAcmFwaWR0ZWNoLmlkIiwibmJmIjoxNjYwMjY3NjUzLCJleHAiOjE2NjE1NjM2NTIsImlhdCI6MTY2MDI2NzY1M30.YjvrRf0QczbX4oA1QPH7N7WBDzSVhU-S6ZAP-fryDgg");
+            }
+
             return View();
         }
 

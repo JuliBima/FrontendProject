@@ -15,22 +15,27 @@ namespace FrontendProject.Controllers
 
         public async Task<IActionResult> Index(string? title, int? skip, int? take)
         {
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
             IEnumerable<Course> model;
             if (skip == null && take == null)
             {
                 if (title == null)
                 {
 
-                    model = await _course.GetAll();
+                    model = await _course.GetAll(myToken);
                 }
                 else
                 {
-                    model = await _course.GetByTitle(title);
+                    model = await _course.GetByTitle(title, myToken);
                 }
             }
             else
             {
-                model = await _course.Pagging(skip, take);
+                model = await _course.Pagging(skip, take, myToken);
             }
 
             ViewData["pesan"] = TempData["pesan"] ?? TempData["pesan"];
@@ -40,7 +45,13 @@ namespace FrontendProject.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var model = await _course.GetById(id);
+
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
+            var model = await _course.GetById(id,myToken);
             return View(model);
         }
 
@@ -52,9 +63,14 @@ namespace FrontendProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Course course)
         {
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
             try
             {
-                var result = await _course.Insert(course);
+                var result = await _course.Insert(course, myToken);
                 TempData["pesan"] =
                     $"<div class='alert alert-success alert-dismissible fade show'>" +
                     $"<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
@@ -74,16 +90,26 @@ namespace FrontendProject.Controllers
 
         public async Task<IActionResult> Update(int id)
         {
-            var model = await _course.GetById(id);
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
+            var model = await _course.GetById(id,myToken);
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(Course course)
         {
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
             try
             {
-                var result = await _course.Update(course);
+                var result = await _course.Update(course,myToken);
                 TempData["pesan"] =
                     $"<div class='alert alert-success alert-dismissible fade show'>" +
                     $"<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
@@ -99,7 +125,12 @@ namespace FrontendProject.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var model = await _course.GetById(id);
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
+            var model = await _course.GetById(id,myToken);
             return View(model);
         }
 
@@ -107,9 +138,14 @@ namespace FrontendProject.Controllers
         [HttpPost]
         public async Task<IActionResult> DeletePost(int id)
         {
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
             try
             {
-                await _course.Delete(id);
+                await _course.Delete(id,myToken);
                 TempData["pesan"] =
                     $"<div class='alert alert-success alert-dismissible fade show'>" +
                     $"<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
@@ -124,7 +160,13 @@ namespace FrontendProject.Controllers
 
         public async Task<IActionResult> CourseWithStudent()
         {
-            var model = await _course.GetWithStudent();
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
+
+            var model = await _course.GetWithStudent(myToken);
 
             ViewData["pesan"] = TempData["pesan"] ?? TempData["pesan"];
             return View(model);
