@@ -6,6 +6,9 @@ namespace MyBackendProject.DAL
     {
         Task<IEnumerable<Student>> GetByName(string fristMidNamme, string lastName);
 
+        Task<IEnumerable<Student>> GetByFristMidName(string fristMidNamme);
+        Task<IEnumerable<Student>> GetByLastName(string lastName);
+
         Task<IEnumerable<Student>> Pagging(int skip, int take);
 
         Task<IEnumerable<Student>> GetEnrollmentCourses();

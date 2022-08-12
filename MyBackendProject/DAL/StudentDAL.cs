@@ -34,11 +34,25 @@ namespace MyBackendProject.DAL
             return results;
         }
 
+        public async Task<IEnumerable<Student>> GetByFristMidName(string fristMidNamme)
+        {
+            var results = await _context.Students.Where(s => s.FirstMidName.Contains(fristMidNamme)).ToListAsync();
+
+            return results;
+        }
+
         public async Task<Student> GetById(int id)
         {
             var result = await _context.Students.FirstOrDefaultAsync(s => s.ID == id);
             if (result == null) throw new Exception($"Data dengan id {id} tidak ditemukan");
             return result;
+        }
+
+        public async Task<IEnumerable<Student>> GetByLastName(string lastName)
+        {
+            var results = await _context.Students.Where(s => s.LastName.Contains(lastName)).ToListAsync();
+
+            return results;
         }
 
         public async Task<IEnumerable<Student>> GetByName(string fristMidNamme, string lastName)

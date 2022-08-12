@@ -37,6 +37,14 @@ namespace FrontendProject.Controllers
 
                     model = await _student.GetAll(myToken);
                 }
+                else if (fristName == null)
+                {
+                    model = await _student.GetByLastName(lastName, myToken);
+                }
+                else if (lastName == null)
+                {
+                    model = await _student.GetByFristMidName(fristName, myToken);
+                }
                 else
                 {
                     model = await _student.GetByName(fristName, lastName, myToken);

@@ -42,6 +42,22 @@ namespace FrontendProject.Services
             return results;
         }
 
+        public async Task<IEnumerable<Student>> GetByFristMidName(string fristMidNamme, string token)
+        {
+            List<Student> students = new List<Student>();
+            using (var httpClient = new HttpClient())
+            {
+                //Memasukan Token
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", $"{token}");
+                using (var respone = await httpClient.GetAsync($"https://localhost:6001/api/Student/ByFristMidName?fristMidName={fristMidNamme}"))
+                {
+                    string apiResponse = await respone.Content.ReadAsStringAsync();
+                    students = JsonConvert.DeserializeObject<List<Student>>(apiResponse);
+
+                }
+            }
+            return students;
+        }
 
         public async Task<Student> GetById(int id, string token)
         {
@@ -62,6 +78,23 @@ namespace FrontendProject.Services
                 }
             }
             return student;
+        }
+
+        public async Task<IEnumerable<Student>> GetByLastName(string lastName, string token)
+        {
+            List<Student> students = new List<Student>();
+            using (var httpClient = new HttpClient())
+            {
+                //Memasukan Token
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", $"{token}");
+                using (var respone = await httpClient.GetAsync($"https://localhost:6001/api/Student/ByLastName?lastName={lastName}"))
+                {
+                    string apiResponse = await respone.Content.ReadAsStringAsync();
+                    students = JsonConvert.DeserializeObject<List<Student>>(apiResponse);
+
+                }
+            }
+            return students;
         }
 
         public async Task<IEnumerable<Student>> GetByName(string fristName, string lastName, string token)

@@ -5,44 +5,62 @@
 }
 
 <h1>Update</h1>
-
-<h4>Enrollment</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Update">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="EnrollmentID" class="control-label"></label>
-                <input asp-for="EnrollmentID" class="form-control" />
-                <span asp-validation-for="EnrollmentID" class="text-danger"></span>
+
+    <div class="col-xl-6 col-lg-7">
+
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h4>Enrollment</h4>
+                <hr />
+                <div class="row">
+                    <div class="col-md-4">
+                        <form asp-action="Update">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="EnrollmentID" class="control-label"></label>
+                                <input asp-for="EnrollmentID" class="form-control" readonly="readonly" />
+                                <span asp-validation-for="EnrollmentID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CourseID" class="control-label"></label>
+                                <input asp-for="CourseID" class="form-control" />
+                                <span asp-validation-for="CourseID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="StudentID" class="control-label"></label>
+                                <input asp-for="StudentID" class="form-control" />
+                                <span asp-validation-for="StudentID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Grade" class="control-label"></label>
+                                <input asp-for="Grade" class="form-control" />
+                                <span asp-validation-for="Grade" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CourseID" class="control-label"></label>
-                <input asp-for="CourseID" class="form-control" />
-                <span asp-validation-for="CourseID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StudentID" class="control-label"></label>
-                <input asp-for="StudentID" class="form-control" />
-                <span asp-validation-for="StudentID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Grade" class="control-label"></label>
-                <input asp-for="Grade" class="form-control" />
-                <span asp-validation-for="Grade" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="row">
+    <div class="col-xl-6 col-lg-7">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <a class="btn btn-danger" asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

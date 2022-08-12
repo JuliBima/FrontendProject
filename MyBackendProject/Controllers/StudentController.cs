@@ -60,6 +60,41 @@ namespace MyBackendProject.Controllers
             return studentDtos;
         }
 
+        [HttpGet("ByFristMidName")]
+        public async Task<IEnumerable<StudentDTO>> GetByFristMidName(string fristMidName)
+        {
+            List<StudentDTO> studentDtos = new List<StudentDTO>();
+            var results = await _studentDAL.GetByFristMidName(fristMidName);
+            foreach (var result in results)
+            {
+                studentDtos.Add(new StudentDTO
+                {
+                    ID = result.ID,
+                    FirstMidName = result.FirstMidName,
+                    LastName = result.LastName
+                });
+            }
+            return studentDtos;
+        }
+
+        [HttpGet("ByLastName")]
+        public async Task<IEnumerable<StudentDTO>> GetLastName(string lastName)
+        {
+            List<StudentDTO> studentDtos = new List<StudentDTO>();
+            var results = await _studentDAL.GetByLastName(lastName);
+            foreach (var result in results)
+            {
+                studentDtos.Add(new StudentDTO
+                {
+                    ID = result.ID,
+                    FirstMidName = result.FirstMidName,
+                    LastName = result.LastName
+                });
+            }
+            return studentDtos;
+        }
+
+
         [HttpGet("Pagging/{skip}/{take}")]
         public async Task<IEnumerable<StudentDTO>> Pagging(int skip, int take)
         {
