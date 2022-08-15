@@ -7,5 +7,9 @@ namespace MyBackendProject.DAL
         Task<Enrollment> InsertEnrollment(Enrollment obj, int studentID, int courseID);
         Task<IEnumerable<Enrollment>> GetEnrollmentStudentCourses();
 
+       
+
+        Task<IEnumerable<Enrollment>> Pagging(int skip, int take);
+
     }
 }

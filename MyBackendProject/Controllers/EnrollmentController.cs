@@ -33,12 +33,12 @@ namespace MyBackendProject.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<EnrollmentDTO> GetById(int id)
+        public async Task<EnrollmentStudentCourseDTO> GetById(int id)
         {
 
             var result = await _enrollmentDAL.GetById(id);
             if (result == null) throw new Exception($"data {id} tidak ditemukan");
-            var DTO = _mapper.Map<EnrollmentDTO>(result);
+            var DTO = _mapper.Map<EnrollmentStudentCourseDTO>(result);
 
             return DTO;
         }
@@ -48,6 +48,16 @@ namespace MyBackendProject.Controllers
         {
             var results = await _enrollmentDAL.GetEnrollmentStudentCourses();
             var DTO = _mapper.Map<IEnumerable<EnrollmentStudentCourseDTO>>(results);
+            return DTO;
+        }
+
+        [HttpGet("Pagging/{skip}/{take}")]
+        public async Task<IEnumerable<EnrollmentStudentCourseDTO>> Pagging(int skip, int take)
+        {
+
+            var results = await _enrollmentDAL.Pagging(skip, take);
+            var DTO = _mapper.Map<IEnumerable<EnrollmentStudentCourseDTO>>(results);
+
             return DTO;
         }
 
