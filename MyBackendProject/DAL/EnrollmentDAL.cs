@@ -34,9 +34,10 @@ namespace MyBackendProject.DAL
             return results;
         }
 
+
         public async Task<Enrollment> GetById(int id)
         {
-            var result = await _context.Enrollments.FirstOrDefaultAsync(s => s.EnrollmentID == id);
+            var result = await _context.Enrollments.Include(s => s.Course).Include(s => s.Student).FirstOrDefaultAsync(s => s.EnrollmentID == id);
             if (result == null) throw new Exception($"Data dengan id {id} tidak ditemukan");
             return result;
         }
@@ -51,7 +52,16 @@ namespace MyBackendProject.DAL
         {
             try
             {
+                //obj.CourseID = obj.Course.CourseID;
+                //obj.StudentID = await _context.Students.Select(n => n.value = ID).ToListAsync();
                 _context.Enrollments.Add(obj);
+                //List<AppContext> students = _context.Students.Select(n =>
+                //new AppContext
+                //{
+                //    Value = n.ID,
+                //    Text = n.FirstMidName
+                //}).ToList();
+                
                 await _context.SaveChangesAsync();
                 return obj;
             }
@@ -77,14 +87,23 @@ namespace MyBackendProject.DAL
 
         }
 
+        public async Task<IEnumerable<Enrollment>> Pagging(int skip, int take)
+        {
+            var results = await _context.Enrollments.Include(s => s.Course).Include(s => s.Student)
+               .Skip(skip).Take(take).ToArrayAsync();
+            return results;
+        }
+
         public async Task<Enrollment> Update(Enrollment obj)
         {
             try
             {
                 var update = await _context.Enrollments.FirstOrDefaultAsync(s => s.EnrollmentID == obj.EnrollmentID);
                 if (update == null)
-                    throw new Exception($"Data dengan id {obj.CourseID} tidak ditemukan");
+                    throw new Exception($"Data dengan id {obj.EnrollmentID} tidak ditemukan");
 
+                update.CourseID = obj.CourseID;
+                update.StudentID = obj.StudentID;
                 update.Grade = obj.Grade;
                
                 await _context.SaveChangesAsync();

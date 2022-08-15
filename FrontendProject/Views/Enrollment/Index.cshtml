@@ -13,18 +13,25 @@
         <div class="table-responsive">
             <p>
                 <a class="btn btn-primary" asp-action="Create">Create New</a>
+                <input type="submit" value="Pagging" class="btn btn-secondary" data-toggle="modal" data-target="#Modal1" />
             </p>
-            <table class="table">
+            <p>
+                @if (ViewData["pesan"] != null)
+                {
+                    @Html.Raw(ViewData["pesan"])
+                }
+            </p>
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>
                             @Html.DisplayNameFor(model => model.EnrollmentID)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.CourseID)
+                            @Html.DisplayNameFor(model => model.Course.Title)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.StudentID)
+                            @Html.DisplayNameFor(model => model.Student.FirstMidName) @Html.DisplayNameFor(model => model.Student.LastName)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Grade)
@@ -40,10 +47,10 @@
                                 @Html.DisplayFor(modelItem => item.EnrollmentID)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.CourseID)
+                                @Html.DisplayFor(modelItem => item.Course.Title)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.StudentID)
+                                @Html.DisplayFor(modelItem => item.Student.FirstMidName)  @Html.DisplayFor(modelItem => item.Student.LastName) 
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Grade)
@@ -60,5 +67,29 @@
         </div>
     </div>
 </div>
-           
+  
+<!-- Modal Pencarian Skip Take-->
+<div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cari Berdasarkan Skip dan Take</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form asp-action="Index" method="get">
+                    <input type="number" name="skip" class="form-control" placeholder="skip" />
+                    <br />
+                    <input type="number" name="take" class="form-control" placeholder="take" />
+                    <br />
+                    <input type="submit" value="Submit" class="btn btn-warning" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 

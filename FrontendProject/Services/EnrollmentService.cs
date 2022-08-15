@@ -27,7 +27,7 @@ namespace FrontendProject.Services
             {
                 //Memasukan Token
                 httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", $"{token}");
-                using (var respone = await httpClient.GetAsync("https://localhost:6001/api/Enrollment"))
+                using (var respone = await httpClient.GetAsync("https://localhost:6001/api/Enrollment/WithStudentAndCourse"))
                 {
                     string apiResponse = await respone.Content.ReadAsStringAsync();
                     results = JsonConvert.DeserializeObject<List<Enrollment>>(apiResponse);
@@ -76,6 +76,23 @@ namespace FrontendProject.Services
                 }
             }
             return enrollment;
+        }
+
+        public async Task<IEnumerable<Enrollment>> Pagging(int? skip, int? take, string token)
+        {
+            List<Enrollment> enrollments = new List<Enrollment>();
+            using (var httpClient = new HttpClient())
+            {
+                //Memasukan Token
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", $"{token}");
+                using (var respone = await httpClient.GetAsync($"https://localhost:6001/api/Enrollment/Pagging/{skip}/{take}"))
+                {
+                    string apiResponse = await respone.Content.ReadAsStringAsync();
+                    enrollments = JsonConvert.DeserializeObject<List<Enrollment>>(apiResponse);
+
+                }
+            }
+            return enrollments;
         }
 
         public async Task<Enrollment> Update(Enrollment obj, string token)
