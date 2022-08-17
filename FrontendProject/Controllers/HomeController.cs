@@ -1,4 +1,5 @@
 ﻿using FrontendProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -13,6 +14,7 @@ namespace FrontendProject.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("token")))

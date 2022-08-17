@@ -1,10 +1,12 @@
 ﻿using FrontendProject.Models;
 using FrontendProject.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FrontendProject.Controllers
 {
+    [Authorize]
     public class EnrollmentController : Controller
     {
         private readonly IEnrollment _enrollment;
@@ -78,7 +80,7 @@ namespace FrontendProject.Controllers
                 TempData["pesan"] =
                     $"<div class='alert alert-success alert-dismissible fade show'>" +
                     $"<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
-                    $"</button> Berhasil menambahkan data {result.Grade} </div>";
+                    $"</button> Berhasil menambahkan data {result.Grade} pada Student {result.StudentID}</div>";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -122,7 +124,7 @@ namespace FrontendProject.Controllers
                 TempData["pesan"] =
                     $"<div class='alert alert-success alert-dismissible fade show'>" +
                     $"<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
-                    $"</button> Berhasil merubah data {result.Grade} </div>";
+                    $"</button> Berhasil merubah data pada student {result.StudentID} </div>";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)

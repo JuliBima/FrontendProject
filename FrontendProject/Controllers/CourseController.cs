@@ -1,9 +1,11 @@
 ﻿using FrontendProject.Models;
 using FrontendProject.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FrontendProject.Controllers
 {
+    [Authorize]
     public class CourseController : Controller
     {
         private readonly ICourse _course;

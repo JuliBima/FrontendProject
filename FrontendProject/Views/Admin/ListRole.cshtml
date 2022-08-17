@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+
+@{
+    ViewData["Title"] = "List Roles";
+}
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">List Role</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+            @if(Model.Any())
+            {
+                <a class="btn btn-primary mb-3" style="width:auto" asp-action="CreateRole" asp-controller="Admin"> Add New Role</a>
+
+                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                      <thead>
+                    <tr>
+                        <th>Role ID</th>
+                        <th>Role Name</th>
+                        <th>&nbsp;</th>
+           
+                    </tr>
+                     </thead>
+                     <tbody>
+                    @foreach(var role in Model)
+                    {
+                        <tr>
+                        <td>@role.Id</td>
+                        <td>@role.Name</td>
+                        <td><a class="btn btn-warning" asp-action="EditRole" asp-route-id="@role.Id">Edit</a>
+                        <input type="submit" value="Delete" class="btn btn-danger" data-toggle="modal" data-target="#Modal" /></td>
+
+
+
+
+                        <!-- Modal-->
+                        <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Apakah Anda Yakin Untuk Menghapus ?</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">Pilih Delete Jika Ingin Menghapus.</div>
+                                    <div class="modal-footer">
+                                        <a class="btn btn-danger" asp-action="HapusRole" asp-route-id="@role.Id">Hapus</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+
+            else{
+               <div class="card col-md-4">
+                   <div class="card-heade">
+                       Belum ada data role
+                   </div>
+                   <div class="card-body">
+                        <a class="btn btn-primary mb-3" style="width:auto" asp-action="CreateRole" asp-controller="Admin"> Add New Role</a>
+                   </div>
+               </div>
+            }
+
+      </div>
+             
+</div>  

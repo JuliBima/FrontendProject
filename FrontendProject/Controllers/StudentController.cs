@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FrontendProject.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class StudentController : Controller
     {
         private readonly IStudent _student;

@@ -1,8 +1,24 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager
+@inject RoleManager<IdentityRole> roleManager
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @if (signInManager.IsSignedIn(User))
+    {
+        @if (User.IsInRole("admin"))
+        {
+            <h1 class="display-6">Selamat Datang @User.Identity.Name </h1>
+             <p class="display-5">Dengan Role Admin </p>
+        }
+        else
+        {
+            <h1 class="display-6">Selamat Datang @User.Identity.Name </h1>
+            <P class="display-5"> Dengan Role User </P>
+        }
+    }
+    @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
 </div>

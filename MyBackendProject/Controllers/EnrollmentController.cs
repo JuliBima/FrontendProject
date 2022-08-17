@@ -51,6 +51,8 @@ namespace MyBackendProject.Controllers
             return DTO;
         }
 
+       
+
         [HttpGet("Pagging/{skip}/{take}")]
         public async Task<IEnumerable<EnrollmentStudentCourseDTO>> Pagging(int skip, int take)
         {
