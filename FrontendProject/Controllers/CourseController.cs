@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FrontendProject.Controllers
 {
-    [Authorize]
     public class CourseController : Controller
     {
         private readonly ICourse _course;
@@ -15,6 +14,7 @@ namespace FrontendProject.Controllers
             _course = course;
         }
 
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Index(string? title, int? skip, int? take)
         {
             string myToken = string.Empty;
@@ -45,6 +45,7 @@ namespace FrontendProject.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Details(int id)
         {
 
@@ -57,12 +58,14 @@ namespace FrontendProject.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create(Course course)
         {
             string myToken = string.Empty;
@@ -90,6 +93,7 @@ namespace FrontendProject.Controllers
 
         }
 
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Update(int id)
         {
             string myToken = string.Empty;
@@ -102,6 +106,7 @@ namespace FrontendProject.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Update(Course course)
         {
             string myToken = string.Empty;
@@ -124,7 +129,7 @@ namespace FrontendProject.Controllers
                 return View();
             }
         }
-
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int id)
         {
             string myToken = string.Empty;
@@ -138,6 +143,7 @@ namespace FrontendProject.Controllers
 
         [ActionName("Delete")]
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeletePost(int id)
         {
             string myToken = string.Empty;
@@ -160,6 +166,7 @@ namespace FrontendProject.Controllers
             }
         }
 
+        [Authorize(Roles = "admin, user")]
         public async Task<IActionResult> CourseWithStudent()
         {
             string myToken = string.Empty;

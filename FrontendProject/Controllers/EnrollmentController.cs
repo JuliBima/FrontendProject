@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FrontendProject.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class EnrollmentController : Controller
     {
         private readonly IEnrollment _enrollment;

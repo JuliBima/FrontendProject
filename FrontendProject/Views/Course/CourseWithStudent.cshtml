@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<FrontendProject.Models.CourseElementStudent>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager
+@inject RoleManager<IdentityRole> roleManager
 
 @{
     ViewData["Title"] = "Course With Student";
@@ -12,9 +15,16 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <p>
-                <a class="btn btn-primary" asp-action="Index">Back to Course</a>
-            </p>
+            @if (signInManager.IsSignedIn(User))
+            {
+                @if (User.IsInRole("admin"))
+                {
+                    <p>
+                        <a class="btn btn-primary" asp-action="Index">Back to Course</a>
+                    </p>
+                }
+               
+            }
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
@@ -68,3 +78,6 @@
         </div>
     </div>
 </div>
+
+
+                         

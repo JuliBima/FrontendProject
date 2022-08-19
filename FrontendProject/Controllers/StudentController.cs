@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FrontendProject.Controllers
 {
-    [Authorize]
+    
     public class StudentController : Controller
     {
         private readonly IStudent _student;
@@ -19,7 +19,7 @@ namespace FrontendProject.Controllers
             _student = student;
             
         }
-
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Index(string? fristName, string? lastName , int? skip , int? take)
         {
 
@@ -61,6 +61,8 @@ namespace FrontendProject.Controllers
             return View(model);
             
         }
+
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Details(int id)
         {
             string myToken = string.Empty;
@@ -73,12 +75,14 @@ namespace FrontendProject.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create(Student student)
         {
             string myToken = string.Empty;
@@ -106,6 +110,7 @@ namespace FrontendProject.Controllers
 
         }
 
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Update(int id)
         {
             string myToken = string.Empty;
@@ -118,6 +123,7 @@ namespace FrontendProject.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Update(Student student)
         {
             string myToken = string.Empty;
@@ -141,6 +147,7 @@ namespace FrontendProject.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int id)
         {
             string myToken = string.Empty;
@@ -154,6 +161,7 @@ namespace FrontendProject.Controllers
 
         [ActionName("Delete")]
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeletePost(int id)
         {
             string myToken = string.Empty;
@@ -176,6 +184,7 @@ namespace FrontendProject.Controllers
             }
         }
 
+        [Authorize(Roles = "admin,user")]
         public async Task<IActionResult> StudentEnrollmentCourse()
         {
             string myToken = string.Empty;
@@ -189,6 +198,7 @@ namespace FrontendProject.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "admin,user")]
         public async Task<IActionResult> StudentWithCourse()
         {
             string myToken = string.Empty;
